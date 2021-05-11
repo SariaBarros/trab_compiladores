@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <ctype.h>
 #include <string>
@@ -37,21 +38,22 @@ enum TiposDeToken
 	PVIR, 	//PONTO E VIRGULA 24
 	PNT, 	//PONTO 25
 	VIR,	//VIRGULA 26
-}
+	END_OF_FILE //fim de arquivo 27
+};
 
 class Token
 {
 	public:
-		int toke;
+		int nome;
 		int atributo;
 		string* lexema;
 
-		Token(int toke){
-			this.toke = toke;
-			this.atributo = UNDEF;
+		Token(int nome){
+			this->nome = nome;
+			atributo = UNDEF;
 		}
-		Token(int toke, int atributo){
-			this.toke = toke;
-			this.atributo = atributo;
+		Token(int nome, int atrib){
+			this->nome = nome;
+			atributo = atrib;
 		}
-}
+};
