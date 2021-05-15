@@ -8,16 +8,34 @@ Scanner::Scanner(string entrada){
 
 Token* Scanner::nextToken(){
 	Token* tok;
-	int estado = 0;
 
 	//consome espaços em branco
 	while(isspace(entrada[pos]))
 		pos++;
+
+	//TODO:checar isso daqui depois.
+	if(entrada[pos] == '/'){
+		pos++;
+		if(entrada[pos] == '/'){
+			do{
+				pos++;
+			}while(entrada[pos] != '\n');
+		}
+		else if(entrada[pos] == '*'){
+			do{
+				pos++;
+			}while(entrada[pos] != '*' and entrada[pos+1] != '/');
+			pos++;
+		}
+
+			
+	}
+
 	//fim de arquivo
-	if(entrada[pos] == '\0'){
+	else if(entrada[pos] == '\0'){
 		tok = new Token(END_OF_FILE);
 	}
-	//identificadore
+	//identificadores
 	else if(isalpha(entrada[pos]) or entrada[pos] == '_'){
 		pos++;
 		while(isalnum(entrada[pos]))
@@ -25,6 +43,7 @@ Token* Scanner::nextToken(){
 		//TODO:busca por palavras reservadas na symble table.
 		//idea: hash???
 
+		//TODO: armazenar o id.
 		tok = new Token(ID);
 	}
 
@@ -33,7 +52,7 @@ Token* Scanner::nextToken(){
 		pos++;
 		while(isdigit(entrada[pos]))
 			pos++;
-		
+		//TODO: armazenar o numero.
 		tok = new Token(INTEGER_LITERAL);
 	}
 	//operadores
@@ -93,7 +112,51 @@ Token* Scanner::nextToken(){
 		else
 			ErroLexico(); //não sei se deixo isso aqui mesmo.
 	}
-	else if()
+	//SEPARADORES
+	else if(entrada[pos] == '('){
+		pos++;
+		tok = new Token(SEP, EPAR);
+	}
+	else if(entrada[pos] == ')'){
+		pos++;
+		tok = new Token(SEP, DPAR);
+	}
+	else if(entrada[pos] == '['){
+		pos++;
+		tok = new Token(SEP, ECOL);
+	}
+	else if(entrada[pos] == ']'){
+		pos++;
+		tok = new Token(SEP, DCOL);
+	}
+	else if(entrada[pos] == '{'){
+		pos++;
+		tok = new Token(SEP, ECHAV);
+	}
+	else if(entrada[pos] == '}'){
+		pos++;
+		tok = new Token(SEP, DCHAV);
+	}
+	else if(entrada[pos] == ';'){
+		pos++;
+		tok = new Token(SEP, PVIR);
+	}
+	else if(entrada[pos] == '.'){
+		pos++;
+		tok = new Token(SEP, PNT);
+	}
+	else if(entrada[pos] == ','){
+		pos++;
+		tok = new Token(SEP, VIR);
+	}
+	else if(entrada[pos] == '"'){
+		pos++;
+		//TODO:armazenar a string
+		while(entrada[pos] != '"')
+		pos++;
+
+		tok = new Token(STR);
+	}
 
 
 
