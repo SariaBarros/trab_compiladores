@@ -56,4 +56,12 @@ class Token
 			this->nome = nome;
 			atributo = atrib;
 		}
+		Token(int nome, string* lexema){
+
+		}
+		Token(int nome, int atrib, string* lexema){
+			this->nome = nome;
+			this->atributo = atrib;
+			this->lexema = lexema;
+		}
 };
