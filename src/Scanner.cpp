@@ -60,7 +60,7 @@ Token* Scanner::nextToken(){
 		pos++;
 		if(entrada[pos] = '='){ 
 			pos++;
-			tok = Token(OP, MNE); //<=
+			tok = new Token(OP, MNE); //<=
 		}
 		else
 			tok = new Token(OP, MN); //<

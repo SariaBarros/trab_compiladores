@@ -9,6 +9,6 @@ class Scanner
 
 	public:
 		Scanner(string entrada);
-		Token* nextToken()
+		Token* nextToken();
         void ErroLexico();
-}
+};
