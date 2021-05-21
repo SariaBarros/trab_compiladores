@@ -20,6 +20,7 @@ Token* Scanner::nextToken(){
 			do{
 				pos++;
 			}while(entrada[pos] != '\n');
+			pos++;
 		}
 		else if(entrada[pos] == '*'){
 			do{
@@ -27,7 +28,10 @@ Token* Scanner::nextToken(){
 			}while(entrada[pos] != '*' and entrada[pos+1] != '/');
 			pos++;
 		}
-
+		else {
+			pos++;
+			tok = new Token(OP, DIV);
+		}
 			
 	}
 
@@ -86,10 +90,6 @@ Token* Scanner::nextToken(){
 	else if(entrada[pos] == '*'){
 		pos++;
 		tok = new Token(OP, MULT);
-	}
-	else if(entrada[pos] == '/'){
-		pos++;
-		tok = new Token(OP, DIV);
 	}
 	else if(entrada[pos] == '%'){
 		pos++;
