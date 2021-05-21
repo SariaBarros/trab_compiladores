@@ -151,10 +151,9 @@ Token* Scanner::nextToken(){
 	}
 	else if(entrada[pos] == '"'){
 		pos++;
-		//TODO:armazenar a string
 		while(entrada[pos] != '"')
+			pos++;
 		pos++;
-
 		tok = new Token(STR);
 	}
 
@@ -169,5 +168,5 @@ Token* Scanner::nextToken(){
 //Aviso de erro lexico
 void Scanner::ErroLexico(){
 	cout<<"Erro\n";
-	exit(EXIT_FAILURE);
+	//exit(EXIT_FAILURE);
 }
