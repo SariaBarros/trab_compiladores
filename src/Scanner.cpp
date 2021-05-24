@@ -23,13 +23,13 @@ Token* Scanner::nextToken(){
 			pos++;
 		}
 		else if(entrada[pos] == '*'){
-			do{
-				pos++;
-			}while(entrada[pos] != '*' and entrada[pos+1] != '/');
 			pos++;
+			while(entrada[pos] != '*' and entrada[pos+1] != '/'){
+				pos++;
+			}
+			pos = pos + 2;
 		}
 		else {
-			pos++;
 			tok = new Token(OP, DIV);
 		}
 			
