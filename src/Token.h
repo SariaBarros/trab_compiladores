@@ -47,7 +47,7 @@ class Token
 	public:
 		int nome;
 		int atributo;
-		string* lexema;
+		string lexema;
 
 		Token(int nome){
 			this->nome = nome;
@@ -57,12 +57,12 @@ class Token
 			this->nome = nome;
 			atributo = atrib;
 		}
-		Token(int nome, string* lexema){
+		Token(int nome, string lexema){
 			this->nome = nome;
 			this->lexema = lexema;
 
 		}
-		Token(int nome, int atrib, string* lexema){
+		Token(int nome, int atrib, string lexema){
 			this->nome = nome;
 			this->atributo = atrib;
 			this->lexema = lexema;
@@ -100,6 +100,13 @@ class Token
 			vetNomes[26] = "VIR"; 
 			vetNomes[27] = "END_OF_FILE"; 
 			
-			cout<<vetNomes[nome]<< " ";
+			if(nome == 1){
+			cout<<vetNomes[nome]<< "("<<lexema<<") ";
+			}
+			else if(nome == 16){
+			cout<<vetNomes[nome]<< "("<<lexema<<") ";
+			}
+			else
+				cout<<vetNomes[nome]<< " ";
 		}
 };
