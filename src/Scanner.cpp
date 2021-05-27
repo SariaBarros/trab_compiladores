@@ -8,6 +8,7 @@ Scanner::Scanner(string entrada){
 
 Token* Scanner::nextToken(){
 	Token* tok;
+	string buffer;
 
 	//consome espaços em branco
 	while(isspace(entrada[pos]))
@@ -44,14 +45,18 @@ Token* Scanner::nextToken(){
 	}
 	//identificadores
 	else if(isalpha(entrada[pos]) or entrada[pos] == '_'){
+		buffer = entrada[pos];
 		pos++;
-		while(isalnum(entrada[pos]))
+		while(isalnum(entrada[pos])){
+			buffer.push_back(entrada[pos]);
 			pos++;
+		}
 		//TODO:busca por palavras reservadas na symble table.
 		//idea: hash???
 
 		//TODO: armazenar o id.
-		tok = new Token(ID);
+		tok = new Token(ID, buffer);
+		buffer.clear();
 	}
 
 	//numeros
@@ -154,10 +159,13 @@ Token* Scanner::nextToken(){
 	}
 	else if(entrada[pos] == '"'){
 		pos++;
-		while(entrada[pos] != '"')
+		while(entrada[pos] != '"'){
+			buffer.push_back(entrada[pos]);
 			pos++;
+		}
 		pos++;
-		tok = new Token(STR);
+		tok = new Token(STR, buffer);
+		buffer.clear();
 	}
 
 
