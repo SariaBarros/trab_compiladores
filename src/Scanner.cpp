@@ -21,18 +21,21 @@ Token* Scanner::nextToken(){
 				pos++;
 			}while(entrada[pos] != '\n');
 			pos++;
+			tok = this->nextToken();
+			//tok = new Token(COMENTARIO);
 		}
 		else if(entrada[pos] == '*'){
-			pos++;
-			while(entrada[pos] != '*' and entrada[pos+1] != '/'){
+			do{
 				pos++;
-			}
-			pos = pos + 2;
+			}while(entrada[pos] != '*' and entrada[pos++] != '/');
+			pos += 2;
+			tok = this->nextToken();
+			//tok = new Token(COMENTARIO);
 		}
 		else {
 			tok = new Token(OP, DIV);
 		}
-			
+		
 	}
 
 	//fim de arquivo

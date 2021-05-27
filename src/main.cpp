@@ -10,11 +10,10 @@ int main(int argc, char* argv[]){
     exit(EXIT_FAILURE);
   }
   while(getline(in, linha)){
-    input = input +'\n' +linha;
+    input.append(linha).append("\n");
   }
-
+  cout << input << endl;
   Scanner* scanner = new Scanner(input);
-
   Token* t;
 
   do{

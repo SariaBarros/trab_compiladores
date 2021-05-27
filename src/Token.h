@@ -39,7 +39,9 @@ enum TiposDeToken
 	PVIR, 	//PONTO E VIRGULA 24
 	PNT, 	//PONTO 25
 	VIR,	//VIRGULA 26
-	END_OF_FILE //fim de arquivo 27
+	END_OF_FILE, //fim de arquivo 27
+	COMENTARIO
+
 };
 
 class Token
@@ -70,7 +72,7 @@ class Token
 		void ToString(){
 			string* vetNomes;
 
-			vetNomes = new string[28];
+			vetNomes = new string[29];
 			vetNomes[0] = "UNDEF";
 			vetNomes[1] = "ID";
 			vetNomes[2] = "INTEGER_LITERAL"; 
@@ -98,7 +100,8 @@ class Token
 			vetNomes[24] = "PVIR";
 			vetNomes[25] = "PNT";
 			vetNomes[26] = "VIR"; 
-			vetNomes[27] = "END_OF_FILE"; 
+			vetNomes[27] = "END_OF_FILE";
+			vetNomes[28] = "COMENTARIO";
 			
 			cout<<vetNomes[nome]<< " ";
 		}
