@@ -12,7 +12,6 @@ int main(int argc, char* argv[]){
   while(getline(in, linha)){
     input.append(linha).append("\n");
   }
-  cout << input << endl;
   Scanner* scanner = new Scanner(input);
   Token* t;
 
