@@ -109,6 +109,9 @@ class Token
 			else if(nome == 16){
 			cout<<vetNomes[nome]<< "("<<lexema<<") ";
 			}
+			else if(nome == 2){
+			cout<<vetNomes[nome]<< "("<<lexema<<") ";
+			}
 			else
 				cout<<vetNomes[nome]<< " ";
 		}
