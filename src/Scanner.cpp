@@ -61,11 +61,14 @@ Token* Scanner::nextToken(){
 
 	//numeros
 	else if(isdigit(entrada[pos])){
+		buffer = entrada[pos];
 		pos++;
-		while(isdigit(entrada[pos]))
+		while(isdigit(entrada[pos])) {
+			buffer.push_back(entrada[pos]);
 			pos++;
+		}
 		//TODO: armazenar o numero.
-		tok = new Token(INTEGER_LITERAL);
+		tok = new Token(INTEGER_LITERAL, buffer);
 	}
 	//operadores
 	else if(entrada[pos] == '<'){
