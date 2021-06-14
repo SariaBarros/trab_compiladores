@@ -1,0 +1,47 @@
+Program			$
+ClassList		$
+ClassDecl		class, $
+ClassBody		class, $
+VarDeclListOpt		constructor, int, string, ID
+VarDeclList		break, ;, int, string, ID, print, return, if, super, read, for, constructor, }
+VarDeclListL		break, ;, int, string, ID, print, return, if, super, read, for, constructor, }
+VarDecl			int, string, ID, break, ;, print, return, if, super, read, for, constructor, }
+VarDeclOpt		;
+Type			[, ID, []
+ConstructDeclListOpt	constructor, int, string, ID
+ConstructDeclList	constructor, int, string, ID
+ConstructDeclListL	constructor, int, string, ID
+ConstructDecl		constructor, int, string, ID
+MethodDeclListOpt	}
+MethodDeclList		}
+MethodDeclListL		}
+MethodDecl		int, string, ID, }
+MethodBody		int, string, ID, }, constructor
+ParamListOpt		RPAR
+ParamList		RPAR
+ParamListL		RPAR
+Param			,, RPAR
+StatementsOpt		}
+Statements		}
+StatementsL		}
+Statement		break, ;, int, string, ID, print, return, if, super, read, for, }
+AtribStat		;, RPAR
+PrintStat		;
+ReadStat		;
+ReturnStat		;
+SuperStat		;
+IfStat			break, ;, int, string, ID, print, return, if, super, read, for, }
+ForStat			break, ;, int, string, ID, print, return, if, super, read, for, }
+AtribStatOpt		;, RPAR
+ExpressionOpt		;
+LValue			=, ;, *, /, %, +, -, RelOp, ,, RPAR, ]
+LValueComp		=, ;, *, /, %, +, -, RelOp, ,, RPAR, ]
+Expression		,, RPAR, ], ;
+AllocExpression		;, RPAR
+NumExpression		RelOp, ,, RPAR, ], ;
+Term			+, -, RelOp, ,, RPAR, ], ;
+UnaryExpression		*, /, %, +, -, RelOp, ,, RPAR, ], ;
+Factor			*, /, %, +, -, RelOp, ,, RPAR, ], ;
+ArgListOpt		RPAR
+ArgList			RPAR
+ArgListL		RPAR
