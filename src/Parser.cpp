@@ -28,7 +28,7 @@ void Parser::run(){
 void Parser::program(){
     //todo: testar a First.cpp
     //checa se o lookahead tá no fist de classList
-    if(First::classList(lToken->lexema)){
+    if(First::classList(lToken)){
         classList();
     }
 
@@ -40,7 +40,7 @@ void Parser::classList(){
 }
 
 void Parser::classList_Linha(){
-    if(First::classList(lToken->lexema)){
+    if(First::classList(lToken)){
         classList();
     }
 }
@@ -72,7 +72,8 @@ void Parser::classBody(){
 }
 
 void Parser::varDeclListOpt(){
-
+    if (First::varDeclList(lToken->lexema))
+        varDeclList();
 }
 
 void Parser::varDeclList(){
@@ -283,3 +284,6 @@ void Parser::argList_Linha(){
     
 }
 
+void Parser::erro(){
+    cout << "Erro :(" << endl;
+}

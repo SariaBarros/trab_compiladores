@@ -1,4 +1,5 @@
 #include "Scanner.h"
+#include "First.h"
 
 int main(int argc, char* argv[]){
   string input;
@@ -7,6 +8,8 @@ int main(int argc, char* argv[]){
 
   if (!in) {
     std::cerr << "Erro ao abrir arquivo\n";
+    Token* i = new Token(ID, "class");
+    cout << First::classList(i) << endl;
     exit(EXIT_FAILURE);
   }
   while(getline(in, linha)){
