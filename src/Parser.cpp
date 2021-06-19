@@ -1,4 +1,5 @@
 #include "Parser.h"
+#include "First.h"
 
 Parser::Parser(string* input){
     scanner = new Scanner((*input));
@@ -19,12 +20,18 @@ void Parser::run(){
     advance();
 
     //primeiro não terminal
+    program();
 
     cout << "Compilação encerrada com sucesso!\n";
 }
 
 void Parser::program(){
-    //não tenho certeza do que fazer com o epsilon
+    //todo: testar a First.cpp
+    //checa se o lookahead tá no fist de classList
+    if(First::classList(lToken->lexema)){
+        classList();
+    }
+
 }
 
 void Parser::classList(){
@@ -33,19 +40,35 @@ void Parser::classList(){
 }
 
 void Parser::classList_Linha(){
-    //dont know
+    if(First::classList(lToken->lexema)){
+        classList();
+    }
 }
 
 void Parser::classDecl(){
-    
+    if(lToken->lexema == "class"){
+        advance();
+        match(ID);
+        classDecl_Linha();
+    }
 }
 
 void Parser::classDecl_Linha(){
-
+    if(lToken->lexema == "extends"){
+        advance();
+        match(ID);
+    }
+    classBody();
 }
 
 void Parser::classBody(){
-
+    if(lToken->nome == ECOL){
+        advance();
+        varDeclListOpt();
+            constructDeclListOpt();
+                methodDeclListOpt();
+        match(DCOL);
+    }
 }
 
 void Parser::varDeclListOpt(){
