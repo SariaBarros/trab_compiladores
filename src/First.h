@@ -1,5 +1,6 @@
 #include<iostream>
 #include <string>
+#include "tipos_de_token.h"
 
 class First{
 
@@ -375,7 +376,7 @@ public:
     }
 
     static bool lValueComp(Token* token){
-        if(token->lexema == "."){
+        if(token->atributo == PNT){
             return true;
         }
         else
@@ -383,7 +384,7 @@ public:
     }
 
     static bool lValueComp_Linha(Token* token){
-        if(token->lexema == "." or token->lexema == "["){
+        if(token->atributo == PNT or token->atributo == ECOL){
             return true;
         }
         else
@@ -391,7 +392,7 @@ public:
     }
 
     static bool expression(Token* token){
-        if(token->lexema == "+" or token->lexema == "-"){
+        if(token->atributo == SUM or token->atributo == DIF){
             return true;
         }
         else
@@ -399,7 +400,7 @@ public:
     }
 
     static bool expression_Linha(Token* token){
-        if(token->lexema == "relop"){
+        if(token->name == OP){
             return true;
         }
         else
@@ -407,7 +408,7 @@ public:
     }
 
     static bool allocExpression(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->lexema == "ID" or token->lexema == "new"){
+        if(token->lexema == "int" or token->lexema == "string" or token->name == ID or token->lexema == "new"){
             return true;
         }
         else
@@ -415,7 +416,7 @@ public:
     }
 
     static bool numExpression(Token* token){
-        if(token->lexema == "-" or token->lexema == "+"){
+        if(token->atributo == DIF or token->atributo == SUM){
             return true;
         }
         else
@@ -423,7 +424,7 @@ public:
     }
 
     static bool numExpression_Linha(Token* token){
-        if(token->lexema == "-" or token->lexema == "+"){
+        if(token->atributo == DIF or token->atributo == SUM){
             return true;
         }
         else
@@ -431,7 +432,7 @@ public:
     }
 
     static bool term(Token* token){
-        if(token->lexema == "-" or token->lexema == "+"){
+        if(token->atributo == DIF or token->atributo == SUM){
             return true;
         }
         else
@@ -439,7 +440,7 @@ public:
     }
 
     static bool term_Linha(Token* token){
-        if(token->lexema == "*" or token->lexema == "/"){
+        if(token->atributo == MULT or token->atributo == DIV){
             return true;
         }
         else
@@ -447,7 +448,7 @@ public:
     }
 
     static bool unaryExpression(Token* token){
-        if(token->lexema == "-" or token->lexema == "+"){
+        if(token->atributo == DIF or token->atributo == SUM){
             return true;
         }
         else
@@ -455,7 +456,7 @@ public:
     }
 
     static bool factor(Token* token){
-        if(token->lexema == "INTEGER_LITERAL" or token->lexema == "STRING_LITERAL" or token->lexema == "(" or token->lexema == "ID"){
+        if(token->name == INTEGER_LITERAL or token->name == STR or token->atributo == EPAR or token->name == ID){
             return true;
         }
         else
@@ -463,7 +464,7 @@ public:
     }
 
     static bool argList(Token* token){
-        if(token->lexema == "-" or token->lexema == "+"){
+        if(token->atributo == DIF or token->atributo == SUM){
             return true;
         }
         else
@@ -471,7 +472,7 @@ public:
     }
 
     static bool argListOpt(Token* token){
-        if(token->lexema == "-" or token->lexema == "+"){
+        if(token->atributo == DIF or token->atributo == SUM){
             return true;
         }
         else
@@ -479,7 +480,7 @@ public:
     }
 
     static bool argList_Linha(Token* token){
-        if(token->lexema == ","){
+        if(token->atributo == VIR){
             return true;
         }
         else
