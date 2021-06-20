@@ -1,0 +1,47 @@
+Program			ε, class
+ClassDecl		class
+ClassBody		{
+VarDeclListOpt		ε, int, string, ID
+VarDeclListL		ε, int, string, ID
+VarDeclOpt		,, ε
+Type			int, string, ID
+ConstructDeclListOpt	ε, constructor
+ConstructDeclListL	ε, constructor
+ConstructDecl		constructor
+MethodDeclListOpt	ε, int, string, ID
+MethodDeclListL		ε, int, string, ID
+MethodBody		LPAR
+ParamListOpt		ε, int, string, ID
+ParamListL		,, ε
+StatementsOpt		ε, break, ;, int, string, ID, print, return, if, super, read, for
+StatementsL		ε, break, ;, int, string, ID, print, return, if, super, read, for
+Statement		break, ;, int, string, ID, print, return, if, super, read, for
+PrintStat		print
+ReadStat		read
+ReturnStat		return
+SuperStat		super
+IfStat			if
+ForStat			for
+AtribStatOpt		ε, ID
+ExpressionOpt		ε, +, -
+LValue			ID
+LValueComp		., ε
+AllocExpression		new, int, string, ID
+UnaryExpression		+, -
+Factor			INTEGER_LITERAL, STRING_LITERAL, LPAR, ID
+ArgListOpt		ε, +, -
+ArgListL		,, ε
+ClassList		class
+VarDecl			int, string, ID
+ConstructDeclList	constructor
+MethodDecl		int, string, ID
+Param			int, string, ID
+AtribStat		ID
+Term			+, -
+VarDeclList		int, string, ID
+MethodDeclList		int, string, ID
+ParamList		int, string, ID
+NumExpression		+, -
+Expression		+, -
+ArgList			+, -
+Statements		break, ;, int, string, ID, print, return, if, super, read, for

@@ -64,7 +64,7 @@ class Token
 			vetNomes[25] = "PNT";
 			vetNomes[26] = "VIR"; 
 			vetNomes[27] = "END_OF_FILE";
-			vetNomes[28] = "COMENTARIO";
+			vetNomes[28] = "RELOP";
 			
 			if(nome == 1){
 			cout<<vetNomes[nome]<< "("<<lexema<<") ";

@@ -75,20 +75,20 @@ Token* Scanner::nextToken(){
 		pos++;
 		if(entrada[pos] = '='){ 
 			pos++;
-			tok = new Token(OP, MNE); //<=
+			tok = new Token(RELOP, MNE); //<=
 		}
 		else
-			tok = new Token(OP, MN); //<
+			tok = new Token(RELOP, MN); //<
 		
 	}
 	else if(entrada[pos] == '>'){
 		pos++;
 		if(entrada[pos] == '='){
 			pos++;
-			tok = new Token(OP, MAE);//>=
+			tok = new Token(RELOP, MAE);//>=
 		}
 		else
-			tok = new Token(OP, MA); //>
+			tok = new Token(RELOP, MA); //>
 	}
 	else if(entrada[pos] == '+'){
 		pos++;
@@ -110,7 +110,7 @@ Token* Scanner::nextToken(){
 		pos++;
 		if(entrada[pos] == '='){
 			pos++;
-			tok = new Token(OP, EQ);
+			tok = new Token(RELOP, EQ);
 		}
 		else
 			tok = new Token(OP, REC);
@@ -118,7 +118,7 @@ Token* Scanner::nextToken(){
 	else if(entrada[pos] == '!'){
 		pos++;
 		if(entrada[pos] == '='){
-			tok = new Token(OP, NEQ);
+			tok = new Token(RELOP, NEQ);
 		}
 		else
 			ErroLexico(); //não sei se deixo isso aqui mesmo.

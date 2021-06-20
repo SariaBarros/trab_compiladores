@@ -77,7 +77,7 @@ void Parser::varDeclListOpt(){
 }
 
 void Parser::varDeclList(){
-
+    
 }
 
 void Parser::varDeclList_Linha(){

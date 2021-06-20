@@ -1,0 +1,96 @@
+#	Expression										Predict
+1	Program → ClassList									class
+2	Program → ε										$
+3	ClassList → ClassDecl ClassList								class
+4	ClassList → ClassDecl									class
+5	ClassDecl → class ID ClassBody								class
+6	ClassDecl → class ID extends ID ClassBody						class
+7	ClassBody → { VarDeclListOpt ConstructDeclListOpt MethodDeclListOpt }			{
+8	VarDeclListOpt → VarDeclList								int, string, ID
+9	VarDeclListOpt → ε									constructor, int, string, ID
+10	VarDeclList → VarDecl VarDeclListL							int, string, ID
+11	VarDeclListL → VarDecl VarDeclListL							int, string, ID
+12	VarDeclListL → ε									break, ;, int, string, ID, print, return, if, super, read, for, constructor, }
+13	VarDecl → Type ID VarDeclOpt ;								int, string, ID
+14	VarDecl → Type [] ID VarDeclOpt ;							int, string, ID
+15	VarDeclOpt → , ID VarDeclOpt								,
+16	VarDeclOpt → ε										;
+17	Type → int										int
+18	Type → string										string
+19	Type → ID										ID
+20	ConstructDeclListOpt → ConstructDeclList						constructor
+21	ConstructDeclListOpt → ε								constructor, int, string, ID
+22	ConstructDeclList → ConstructDecl ConstructDeclListL					constructor
+23	ConstructDeclListL → ConstructDecl ConstructDeclListL					constructor
+24	ConstructDeclListL → ε									constructor, int, string, ID
+25	ConstructDecl → constructor MethodBody							constructor
+26	MethodDeclListOpt → MethodDeclList							int, string, ID
+27	MethodDeclListOpt → ε									}
+28	MethodDeclList → MethodDecl MethodDeclListL						int, string, ID
+29	MethodDeclListL → MethodDecl MethodDeclListL						int, string, ID
+30	MethodDeclListL → ε									}
+31	MethodDecl → Type ID MethodBody								int, string, ID
+32	MethodDecl → Type [] ID MethodBody							int, string, ID
+33	MethodBody → LPAR ParamListOpt RPAR { StatementsOpt }					LPAR
+34	ParamListOpt → ParamList								int, string, ID
+35	ParamListOpt → ε									RPAR
+36	ParamList → Param ParamListL								int, string, ID
+37	ParamListL → , Param ParamListL								,
+38	ParamListL → ε										RPAR
+39	Param → Type ID										int, string, ID
+40	Param → Type [] ID									int, string, ID
+41	StatementsOpt → Statements								break, ;, int, string, ID, print, return, if, super, read, for
+42	StatementsOpt → ε									}
+43	Statements → Statement StatementsL							break, ;, int, string, ID, print, return, if, super, read, for
+44	StatementsL → Statement StatementsL							break, ;, int, string, ID, print, return, if, super, read, for
+45	StatementsL → ε										}
+46	Statement → VarDeclList									int, string, ID
+47	Statement → AtribStat ;									ID
+48	Statement → PrintStat ;									print
+49	Statement → ReadStat ;									read
+50	Statement → ReturnStat ;								return
+51	Statement → SuperStat ;									super
+52	Statement → IfStat									if
+53	Statement → ForStat									for
+54	Statement → break ;									break
+55	Statement → ;										;
+56	AtribStat → LValue = Expression								ID
+57	AtribStat → LValue = AllocExpression							ID
+58	PrintStat → print Expression								print
+59	ReadStat → read LValue									read
+60	ReturnStat → return Expression								return
+61	SuperStat → super LPAR ArgListOpt RPAR							super
+62	IfStat → if LPAR Expression RPAR { Statements }						if
+63	IfStat → if LPAR Expression RPAR { Statements } else { Statements }			if
+64	ForStat → for LPAR AtribStatOpt ; ExpressionOpt ; AtribStatOpt RPAR { Statements }	for
+65	AtribStatOpt → AtribStat								ID
+66	AtribStatOpt → ε									;, RPAR
+67	ExpressionOpt → Expression								+, -
+68	ExpressionOpt → ε									;
+69	LValue → ID LValueComp									ID
+70	LValue → ID [ Expression ] LValueComp							ID
+71	LValueComp → . ID LValueComp								.
+72	LValueComp → . ID [ Expression ] LValueComp						.
+73	LValueComp → ε										=, ;, *, /, %, +, -, RelOp, ,, RPAR,
+74	Expression → NumExpression								+, -
+75	Expression → NumExpression RelOp NumExpression						+, -
+76	AllocExpression → new ID LPAR ArgListOpt RPAR						new
+77	AllocExpression → Type [ Expression ]							int, string, ID
+78	NumExpression → Term + Term								+, -
+79	NumExpression → Term - Term								+, -
+80	NumExpression → Term									+, -
+81	Term → UnaryExpression * UnaryExpression						+, -
+82	Term → UnaryExpression / UnaryExpression						+, -
+83	Term → UnaryExpression % UnaryExpression						+, -
+84	Term → UnaryExpression									+, -
+85	UnaryExpression → + Factor								+
+86	UnaryExpression → - Factor								-
+87	Factor → INTEGER_LITERAL								INTEGER_LITERAL
+88	Factor → STRING_LITERAL									STRING_LITERAL
+89	Factor → LValue										ID
+90	Factor → LPAR Expression RPAR								LPAR
+91	ArgListOpt → ArgList									+, -
+92	ArgListOpt → ε										RPAR
+93	ArgList → Expression ArgListL								+, -
+94	ArgListL → , Expression ArgListL							,
+95	ArgListL → ε										RPAR
