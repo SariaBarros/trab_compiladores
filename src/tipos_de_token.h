@@ -1,3 +1,4 @@
+#pragma once
 enum TiposDeToken
 {	
 	UNDEF,	//INDEFINIDO 0
