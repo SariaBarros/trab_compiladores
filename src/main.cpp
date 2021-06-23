@@ -1,5 +1,5 @@
-#include "Scanner.h"
 #include "First.h"
+#include "Parser.h"
 
 int main(int argc, char* argv[]){
   string input;
@@ -7,23 +7,22 @@ int main(int argc, char* argv[]){
   ifstream in(argv[1]);
 
   if (!in) {
-    std::cerr << "Erro ao abrir arquivo\n";
-    Token* i = new Token(ID, "class");
-    cout << First::classList(i) << endl;
-    exit(EXIT_FAILURE);
+    std::cerr << "Erro ao abrir arquivo, modo teste\n ";
+    getline(cin, linha);
+    //exit(EXIT_FAILURE);
+  }else{
+    while(getline(in, linha)){
+      input.append(linha).append("\n");
+    }
   }
-  while(getline(in, linha)){
-    input.append(linha).append("\n");
-  }
-  Scanner* scanner = new Scanner(input);
-  Token* t;
+  
+  //Chamar o destrutor.
 
-  do{
-      t = scanner->nextToken();
-      t->ToString();
-  }while(t->nome != END_OF_FILE);
+  Parser* parser = new Parser(&linha);
 
-    //Chamar o destrutor.
+  parser->run();
 
-    return 0;
+  delete parser;
+
+  return 0;
 }

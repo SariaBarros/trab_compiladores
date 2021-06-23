@@ -511,5 +511,5 @@ void Parser::argList_Linha(){
 }
 
 void Parser::erro(){
-    cout << "Erro :(" << endl;
+    cout << "Erro Sintatico:(" << endl;
 }

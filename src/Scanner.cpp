@@ -181,6 +181,6 @@ Token* Scanner::nextToken(){
 
 //Aviso de erro lexico
 void Scanner::ErroLexico(){
-	cout<<"Erro\n";
+	cout<<"Erro Léxico\n";
 	//exit(EXIT_FAILURE);
 }

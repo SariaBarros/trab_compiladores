@@ -1,7 +1,8 @@
 #pragma once
-#include<iostream>
+#include <iostream>
 #include <string>
 #include "tipos_de_token.h"
+#include "Token.h"
 
 class First{
 
