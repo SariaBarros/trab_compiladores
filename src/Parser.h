@@ -6,7 +6,8 @@ class Parser{
         Token* lToken;
 
         void advance();
-        void match(int);
+        void matchN(int);
+        void matchA(int);
         void erro();
 
         void program();

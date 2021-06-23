@@ -170,9 +170,6 @@ Token* Scanner::nextToken(){
 		tok = new Token(STR, buffer);
 		buffer.clear();
 	}
-
-
-
 	else
 		ErroLexico();
 	

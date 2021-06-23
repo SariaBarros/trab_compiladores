@@ -15,13 +15,12 @@ int main(int argc, char* argv[]){
       input.append(linha).append("\n");
     }
   }
-  
-  //Chamar o destrutor.
 
   Parser* parser = new Parser(&linha);
 
   parser->run();
-
+  
+  //Chama o destrutor
   delete parser;
 
   return 0;

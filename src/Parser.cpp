@@ -9,8 +9,15 @@ void Parser::advance(){
     lToken = scanner -> nextToken();
 }
 
-void Parser::match(int t){
-    if(lToken->nome == t || lToken->atributo == t)
+void Parser::matchN(int t){
+    if(lToken->nome == t)
+        advance();
+    else
+        erro();
+}
+
+void Parser::matchA(int t){
+    if (lToken->atributo == t)
         advance();
     else
         erro();
@@ -48,26 +55,38 @@ void Parser::classList_Linha(){
 void Parser::classDecl(){
     if(lToken->lexema == "class"){
         advance();
-        match(ID);
+        matchN(ID);
         classDecl_Linha();
+    }
+    else {
+        erro();
     }
 }
 
 void Parser::classDecl_Linha(){
     if(lToken->lexema == "extends"){
         advance();
-        match(ID);
+        matchN(ID);
+        classBody();
     }
-    classBody();
+    else if(First::classBody(lToken)){
+        classBody();
+    }
+    else {
+        erro();
+    }
 }
 
 void Parser::classBody(){
-    if(lToken->nome == ECOL){
+    if(lToken->atributo == ECHAV){
         advance();
         varDeclListOpt();
             constructDeclListOpt();
                 methodDeclListOpt();
-        match(DCOL);
+        matchA(DCHAV);
+    }
+    else{
+        erro();
     }
 }
 
@@ -97,21 +116,24 @@ void Parser::varDecl_Linha(){
     if(lToken->nome == ID){
         advance();
         varDeclOpt();
-        match(PVIR);
+        matchA(PVIR);
     }
-    else if(lToken->nome == ECOL){
+    else if(lToken->atributo == ECOL){
         advance();
-        match(DCOL);
-        match(ID);
+        matchA(DCOL);
+        matchN(ID);
         varDeclOpt();
-        match(PVIR);
+        matchA(PVIR);
+    }
+    else {
+        erro();
     }
 }
 
 void Parser::varDeclOpt(){
     if(lToken->atributo == VIR){
         advance();
-        match(ID);
+        matchN(ID);
         varDeclOpt();
     }
 }
@@ -126,6 +148,9 @@ void Parser::type(){
     else if(lToken->nome == ID){
         // ToDo: tratar o id
         advance();
+    }
+    else {
+        erro();
     }
 }
 
@@ -149,7 +174,11 @@ void Parser::constructDeclList_Linha(){
 
 void Parser::constructDecl(){
     if(lToken->lexema == "constructor"){
+        advance();
         methodBody();
+    }
+    else {
+        erro();
     }
 }
 
@@ -181,21 +210,25 @@ void Parser::methodDecl_Linha(){
         advance();
         methodBody();
     }
-    else if(lToken->nome == ECOL){
+    else if(lToken->atributo == ECOL){
         advance();
-        match(DCOL);
-        match(ID);
+        matchA(DCOL);
+        matchN(ID);
         methodBody();
     }
 }
 
 void Parser::methodBody(){
-    if(lToken->nome == EPAR){
+    if(lToken->atributo == EPAR){
+        advance();
         paramListOpt();
-        match(DPAR);
-        match(ECHAV);
+        matchA(DPAR);
+        matchA(ECHAV);
         statementsOpt();
-        match(DCHAV);
+        matchA(DCHAV);
+    }
+    else {
+        erro();
     }
 }
 
@@ -211,9 +244,10 @@ void Parser::paramList(){
 }
 
 void Parser::paramList_Linha(){
-    if( lToken->nome == VIR){
+    if( lToken->atributo == VIR){
+        advance();
         param();
-            paramList_Linha();
+        paramList_Linha();
     }
 }
 
@@ -227,11 +261,14 @@ void Parser::param_Linha(){
         //ToDo: tratar id
         advance();
     }
-    else if(lToken->nome == ECOL){
+    else if(lToken->atributo == ECOL){
         advance();
-        match(DCOL);
-        match(ID);
+        matchA(DCOL);
+        matchN(ID);
         //OBS: não sei se dá pra tratar o id se usar a match
+    }
+    else {
+        erro();
     }
 }
 
@@ -259,23 +296,23 @@ void Parser::statement(){
     }
     else if(First::atribStat(lToken)){
         atribStat();
-        match(PVIR);
+        matchA(PVIR);
     }
     else if(First::printStat(lToken)){
         printStat();
-        match(PVIR);
+        matchA(PVIR);
     }
     else if(First::readStat(lToken)){
         readStat();
-        match(PVIR);
+        matchA(PVIR);
     }
     else if(First::returnStat(lToken)){
         returnStat();
-        match(PVIR);
+        matchA(PVIR);
     }
     else if(First::superStat(lToken)){
         superStat();
-        match(PVIR);
+        matchA(PVIR);
     }
     else if(First::ifStat(lToken)){
         ifStat();
@@ -285,16 +322,16 @@ void Parser::statement(){
     }
     else if(lToken->lexema == "break"){
         advance();
-        match(PVIR);
+        matchA(PVIR);
     }  
-    else if(lToken->nome == PVIR){
+    else if(lToken->atributo == PVIR){
         advance();
     }
 }
 
 void Parser::atribStat(){
     lValue();
-    match(EQ);
+    matchA(EQ);
     atribStat_Linha();
 }
 
@@ -329,21 +366,21 @@ void Parser::returnStat(){
 void Parser::superStat(){
     if (lToken->lexema == "super"){
         advance();
-        match(EPAR);
+        matchA(EPAR);
         argListOpt();
-        match(DPAR);
+        matchA(DPAR);
     }
 }
 
 void Parser::ifStat(){
     if(lToken->lexema == "if"){
         advance();
-        match(EPAR);
+        matchA(EPAR);
             expression();
-        match(DPAR);
-        match(ECHAV);
+        matchA(DPAR);
+        matchA(ECHAV);
             statements();
-        match(DCHAV);
+        matchA(DCHAV);
         ifStat_Linha();
     }
 }
@@ -351,25 +388,25 @@ void Parser::ifStat(){
 void Parser::ifStat_Linha(){
     if(lToken->lexema == "else"){
         advance();
-        match(ECHAV);
+        matchA(ECHAV);
             statements();
-        match(DCHAV);        
+        matchA(DCHAV);        
     }
 }
 
 void Parser::forStat(){
     if(lToken->lexema == "for"){
         advance();
-        match(EPAR);
+        matchA(EPAR);
             atribStatOpt();
-            match(VIR);
+            matchA(VIR);
             expressionOpt();
-            match(VIR);
+            matchA(VIR);
             atribStatOpt();
-        match(DPAR);
-        match(ECHAV);
+        matchA(DPAR);
+        matchA(ECHAV);
             statements();
-        match(DCHAV);        
+        matchA(DCHAV);        
     }
 }
 
@@ -393,10 +430,10 @@ void Parser::lValue(){
 }
 
 void Parser::lValue_Linha(){
-    if(lToken->nome == ECOL){
+    if(lToken->atributo == ECOL){
         advance();
         expression();
-        match(DCOL);
+        matchA(DCOL);
     }
     lValueComp();
 }
@@ -404,16 +441,16 @@ void Parser::lValue_Linha(){
 void Parser::lValueComp(){
     if(lToken->lexema == "."){
         advance();
-        match(ID);
+        matchN(ID);
         lValueComp_Linha();
     }
 }
 
 void Parser::lValueComp_Linha(){
-    if(lToken->nome == ECOL){
+    if(lToken->atributo == ECOL){
         advance();
         expression();
-        match(DCOL);
+        matchA(DCOL);
     }
     lValueComp();
 }
@@ -433,16 +470,16 @@ void Parser::expression_Linha(){
 void Parser::allocExpression(){
     if(lToken->lexema == "new"){
         advance();
-        match(ID);
-        match(EPAR);
+        matchN(ID);
+        matchA(EPAR);
             argListOpt();
-        match(DPAR);
+        matchA(DPAR);
     }
     else{
         type();
-        match(ECOL);
+        matchA(ECOL);
             expression();
-        match(DCOL);
+        matchA(DCOL);
     }
 }
 
@@ -485,10 +522,10 @@ void Parser::factor(){
     else if(lToken->nome == STR){
         advance();
     }
-    else if(lToken->nome == EPAR){
+    else if(lToken->atributo     == EPAR){
         advance();
         expression();
-        match(DPAR);
+        matchA(DPAR);
     }
     lValue();
 }
@@ -512,4 +549,5 @@ void Parser::argList_Linha(){
 
 void Parser::erro(){
     cout << "Erro Sintatico:(" << endl;
+    exit(EXIT_FAILURE);
 }
