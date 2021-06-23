@@ -1,9 +1,36 @@
 #include "Scanner.h"
 
 //Construtor
-Scanner::Scanner(string entrada){
-	this->entrada = entrada;
-	pos = 0;
+Scanner::Scanner(string input)
+{
+
+    pos = 0;
+
+    ifstream inputFile(input, ios::in);
+
+    string line;
+	
+    if (inputFile.is_open())
+    {
+
+        while (getline(inputFile,line) )
+        {
+
+            this->entrada.append(line + '\n');
+
+        }
+
+        inputFile.close();
+
+    }
+
+    else {
+        cout << "Unable to open file\n"; 
+		exit(EXIT_FAILURE);
+	}
+
+	//realmente necessário?
+    //cout << this->entrada;
 }
 
 Token* Scanner::nextToken(){
