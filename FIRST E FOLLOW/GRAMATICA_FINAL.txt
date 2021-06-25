@@ -1,0 +1,88 @@
+Program -> ClassList | EPSILON
+ClassList -> ClassDecl ClassListLinha
+	ClassListLinha -> ClassList | EPSILON
+
+ClassDecl -> class ID Extends ClassBody
+	Extends -> extends ID | EPSILON
+
+ClassBody -> { VarDeclListOpt ConstructDeclListOpt MethodDeclListOpt }
+
+VarDeclListOpt -> VarDeclList | EPSILON
+
+VarDeclList -> VarDecl VarDeclListL
+
+VarDeclListL -> VarDecl VarDeclListL | EPSILON
+
+VarDecl -> Type VarDeclLinha
+	VarDeclLinha -> ID VarDeclOpt ; | [] ID VarDeclOpt ;
+
+VarDeclOpt -> , ID VarDeclOpt | EPSILON
+Type -> int | string | ID
+
+ConstructDeclListOpt -> ConstructDeclList | EPSILON
+
+ConstructDeclList -> ConstructDecl ConstructDeclListL
+ConstructDeclListL -> ConstructDecl ConstructDeclListL | EPSILON
+ConstructDecl -> constructor MethodBody
+
+MethodDeclListOpt -> MethodDeclList | EPSILON
+
+MethodDeclList -> MethodDecl MethodDeclListL
+	MethodDeclListL -> MethodDecl MethodDeclListL | EPSILON
+
+MethodDecl -> Type MethodDeclLinha
+	MethodDeclLinha -> ID MethodBody | [] ID MethodBody
+
+MethodBody -> LPAR ParamListOpt RPAR { StatementsOpt }
+
+ParamListOpt -> ParamList | EPSILON
+ParamList -> Param ParamListL
+ParamListL -> , Param ParamListL | EPSILON
+Param -> Type ParamLinha
+	ParamLinha -> ID | [] ID
+
+StatementsOpt -> Statements| EPSILON
+Statements ->  Statement StatementsL
+StatementsL -> Statement StatementsL | EPSILON
+
+Statement -> VarDeclList | AtribStat ; | PrintStat ; | ReadStat ; | ReturnStat ; | SuperStat ; | IfStat | ForStat | break ; | ;
+
+AtribStat -> LValue = AtribStatLinha
+	AtribStatLinha -> Expression | AllocExpression
+
+PrintStat -> print Expression
+ReadStat -> read LValue
+ReturnStat -> return Expression
+SuperStat -> super LPAR ArgListOpt RPAR
+
+IfStat -> if LPAR Expression RPAR { Statements } IfStatLinha
+	IfStatLinha -> else { Statements } | EPSILON
+
+ForStat -> for LPAR AtribStatOpt ; ExpressionOpt ; AtribStatOpt RPAR { Statements }
+AtribStatOpt -> AtribStat | EPSILON
+ExpressionOpt -> Expression | EPSILON
+
+LValue -> ID LValueLinha
+	LValueLinha -> LValueComp | [ Expression ] LValueComp
+
+LValueComp -> . ID LValueCompLinha | EPSILON
+	LValueCompLinha -> LValueComp | [ Expression ] LValueComp
+
+Expression -> NumExpression ExpressionLinha
+	ExpressionLinha -> RelOp NumExpression | EPSILON
+
+AllocExpression -> new ID LPAR ArgListOpt RPAR | Type [ Expression ]
+
+NumExpression -> Term NumExpressionLinha
+	NumExpressionLinha -> + Term | - Term | EPSILON
+
+Term -> UnaryExpression TermLinha
+	TermLinha -> * UnaryExpression | / UnaryExpression | % UnaryExpression | EPSILON
+
+UnaryExpression -> + Factor | - Factor
+
+Factor -> INTEGER_LITERAL | STRING_LITERAL | LValue | LPAR Expression RPAR
+
+ArgListOpt -> ArgList | EPSILON
+ArgList -> Expression ArgListL
+ArgListL -> , Expression ArgListL | EPSILON
