@@ -8,7 +8,8 @@ class Scanner
 		int pos;
 
 	public:
-		Scanner(string entrada);
+		Scanner(ifstream* entrada);
 		Token* nextToken();
         void ErroLexico();
+		int linha=1;
 };

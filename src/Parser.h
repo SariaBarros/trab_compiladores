@@ -1,4 +1,5 @@
 #include "Scanner.h"
+#include "First.h"
 
 class Parser{
     private:
@@ -84,6 +85,6 @@ class Parser{
 
 
     public:
-        Parser(string*);
+        Parser(ifstream*);
         void run();
 };

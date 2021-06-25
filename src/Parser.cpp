@@ -1,8 +1,7 @@
 #include "Parser.h"
-#include "First.h"
 
-Parser::Parser(string* input){
-    scanner = new Scanner((*input));
+Parser::Parser(ifstream* input){
+    scanner = new Scanner(input);
 }
 
 void Parser::advance(){

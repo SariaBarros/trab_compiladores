@@ -1,4 +1,3 @@
-#include "First.h"
 #include "Parser.h"
 
 int main(int argc, char* argv[]){
@@ -6,17 +5,17 @@ int main(int argc, char* argv[]){
   string linha;
   ifstream in(argv[1]);
 
-  if (!in) {
-    std::cerr << "Erro ao abrir arquivo, modo teste\n ";
-    getline(cin, linha);
-    //exit(EXIT_FAILURE);
-  }else{
-    while(getline(in, linha)){
-      input.append(linha).append("\n");
-    }
-  }
+  // if (!in) {
+  //   std::cerr << "Erro ao abrir arquivo, modo teste\n ";
+  //   getline(cin, linha);
+  //   //exit(EXIT_FAILURE);
+  // }else{
+  //   while(getline(in, linha)){
+  //     input.append(linha).append("\n");
+  //   }
+  // }
 
-  Parser* parser = new Parser(&linha);
+  Parser* parser = new Parser(&in);
 
   parser->run();
   

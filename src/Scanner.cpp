@@ -1,26 +1,26 @@
 #include "Scanner.h"
 
 //Construtor
-Scanner::Scanner(string input)
+Scanner::Scanner(ifstream* input)
 {
 
     pos = 0;
 
-    ifstream inputFile(input, ios::in);
+    // ifstream inputFile(input, ios::in);
 
     string line;
 	
-    if (inputFile.is_open())
+    if ((*input).is_open())
     {
 
-        while (getline(inputFile,line) )
+        while (getline((*input),line) )
         {
 
             this->entrada.append(line + '\n');
 
         }
 
-        inputFile.close();
+        (*input).close();
 
     }
 
@@ -30,7 +30,7 @@ Scanner::Scanner(string input)
 	}
 
 	//realmente necessário?
-    //cout << this->entrada;
+    cout << this->entrada;
 }
 
 Token* Scanner::nextToken(){
