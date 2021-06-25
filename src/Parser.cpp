@@ -110,31 +110,56 @@ void Parser::varDeclList_Linha(){
 
 void Parser::varDecl(){
     type();
-        varDecl_Linha();
-}
-
-void Parser::varDecl_Linha(){
     if(lToken->nome == ID){
         advance();
-        if(First::varDeclOpt(lToken)){
-            varDeclOpt();
-        }
-        matchA(PVIR);
         if(First::methodBody(lToken)){
             methodBody();
+        }
+        else{
+            if(First::varDeclOpt(lToken)){
+                varDeclOpt();
+            }
+            matchA(PVIR);
         }
     }
     else if(lToken->atributo == ECOL){
         advance();
         matchA(DCOL);
         matchN(ID);
-        varDeclOpt();
-        matchA(PVIR);
-    }
-    else {
-        erro();
+        if(First::methodBody(lToken)){
+            methodBody();
+        }
+        else{
+            if(First::varDeclOpt(lToken)){
+                varDeclOpt();
+            }
+            matchA(PVIR);
+        }        
     }
 }
+
+// void Parser::varDecl_Linha(){
+//     if(lToken->nome == ID){
+//         advance();
+//         if(First::varDeclOpt(lToken)){
+//             varDeclOpt();
+//         }
+//         matchA(PVIR);
+//         // if(First::methodBody(lToken)){
+//         //     methodBody();
+//         // }
+//     }
+//     else if(lToken->atributo == ECOL){
+//         advance();
+//         matchA(DCOL);
+//         matchN(ID);
+//         varDeclOpt();
+//         matchA(PVIR);
+//     }
+//     else {
+//         erro();
+//     }
+// }
 
 void Parser::varDeclOpt(){
     if(lToken->atributo == VIR){
