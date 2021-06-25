@@ -30,7 +30,7 @@ Scanner::Scanner(ifstream* input)
 	}
 
 	//realmente necessário?
-    cout << this->entrada;
+    // cout << this->entrada;
 }
 
 Token* Scanner::nextToken(){

@@ -6,6 +6,7 @@ Parser::Parser(ifstream* input){
 
 void Parser::advance(){
     lToken = scanner -> nextToken();
+    // lToken->ToString();
 }
 
 void Parser::matchN(int t){
@@ -138,28 +139,6 @@ void Parser::varDecl(){
     }
 }
 
-// void Parser::varDecl_Linha(){
-//     if(lToken->nome == ID){
-//         advance();
-//         if(First::varDeclOpt(lToken)){
-//             varDeclOpt();
-//         }
-//         matchA(PVIR);
-//         // if(First::methodBody(lToken)){
-//         //     methodBody();
-//         // }
-//     }
-//     else if(lToken->atributo == ECOL){
-//         advance();
-//         matchA(DCOL);
-//         matchN(ID);
-//         varDeclOpt();
-//         matchA(PVIR);
-//     }
-//     else {
-//         erro();
-//     }
-// }
 
 void Parser::varDeclOpt(){
     if(lToken->atributo == VIR){
@@ -304,6 +283,7 @@ void Parser::param_Linha(){
 }
 
 void Parser::statementsOpt(){
+
     if(First::statements(lToken)){
         statements();
     }
@@ -322,12 +302,12 @@ void Parser::statements_Linha(){
 }
 
 void Parser::statement(){
-    if(First::varDeclList(lToken)){
-        varDeclList();
-    }
-    else if(First::atribStat(lToken)){
+    if(First::atribStat(lToken)){
         atribStat();
         matchA(PVIR);
+    }
+    else if(First::varDeclList(lToken)){
+        varDeclList();
     }
     else if(First::printStat(lToken)){
         printStat();
@@ -362,13 +342,14 @@ void Parser::statement(){
 
 void Parser::atribStat(){
     lValue();
-    matchA(EQ);
+    matchA(REC);
     atribStat_Linha();
 }
 
 void Parser::atribStat_Linha(){
-    if(First::expression(lToken))
+    if(First::expression(lToken)){
         expression();
+    }
     else if(First::allocExpression(lToken))
         allocExpression();
 }
@@ -488,12 +469,8 @@ void Parser::lValueComp_Linha(){
 
 void Parser::expression(){
     numExpression();
-        expression_Linha();
-}
-
-void Parser::expression_Linha(){
-//oq é relop?
-    if(lToken->nome == OP){
+    if(isRelOp()){
+        advance();
         numExpression();
     }
 }
@@ -513,9 +490,10 @@ void Parser::allocExpression(){
         matchA(DCOL);
     }
 }
-
+//ToDo: matar a linha
 void Parser::numExpression(){
     term();
+
         numExpression_Linha();
 }
 
@@ -525,7 +503,7 @@ void Parser::numExpression_Linha(){
         term();
     }
 }
-
+//ToDo: matar a linha
 void Parser::term(){
     unaryExpression();
         term_Linha();
@@ -539,7 +517,7 @@ void Parser::term_Linha(){
 }
 
 void Parser::unaryExpression(){
-    if (lToken->nome == SUM || lToken->nome == DIF){
+    if (lToken->atributo == SUM || lToken->atributo == DIF){
         advance();
         factor();
     }   
@@ -581,4 +559,14 @@ void Parser::argList_Linha(){
 void Parser::erro(){
     cout << "Erro Sintatico:(" << endl;
     exit(EXIT_FAILURE);
+}
+
+bool Parser::isRelOp(){
+    if(lToken->atributo == MN || lToken->atributo == MA ||
+    lToken->atributo == MNE || lToken->atributo == MAE ||
+    lToken->atributo == EQ){
+        return true;
+    }
+    else
+        return false;
 }

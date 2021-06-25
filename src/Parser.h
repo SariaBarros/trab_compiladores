@@ -72,7 +72,6 @@ class Parser{
         void lValueComp_Linha();
 
         void expression();
-        void expression_Linha();
         void expressionOpt();
         void allocExpression();
         void numExpression();
@@ -82,6 +81,8 @@ class Parser{
         void argList();
         void argList_Linha();
         void argListOpt();
+        
+        bool isRelOp();
 
 
     public:
