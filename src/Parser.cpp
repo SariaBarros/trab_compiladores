@@ -118,9 +118,9 @@ void Parser::varDecl_Linha(){
         advance();
         if(First::varDeclOpt(lToken)){
             varDeclOpt();
-            matchA(PVIR);
         }
-        else if(First::methodBody(lToken)){
+        matchA(PVIR);
+        if(First::methodBody(lToken)){
             methodBody();
         }
     }
