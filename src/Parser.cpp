@@ -37,7 +37,9 @@ void Parser::program(){
     if(First::classList(lToken)){
         classList();
     }
-
+    else{
+        erro();
+    }
 }
 
 void Parser::classList(){
@@ -102,7 +104,7 @@ void Parser::varDeclList(){
 void Parser::varDeclList_Linha(){
     if(First::varDecl(lToken)){
         varDecl();
-            varDecl_Linha();
+            varDeclList_Linha();
     }
 }
 
@@ -114,8 +116,13 @@ void Parser::varDecl(){
 void Parser::varDecl_Linha(){
     if(lToken->nome == ID){
         advance();
-        varDeclOpt();
-        matchA(PVIR);
+        if(First::varDeclOpt(lToken)){
+            varDeclOpt();
+            matchA(PVIR);
+        }
+        else if(First::methodBody(lToken)){
+            methodBody();
+        }
     }
     else if(lToken->atributo == ECOL){
         advance();
