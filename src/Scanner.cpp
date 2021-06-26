@@ -56,7 +56,7 @@ Token* Scanner::nextToken(){
 			do{
 				pos++;
 			}while(entrada[pos] != '*' and entrada[pos++] != '/');
-			pos += 2;
+			pos += 3;
 			tok = this->nextToken();
 			//tok = new Token(COMENTARIO);
 		}

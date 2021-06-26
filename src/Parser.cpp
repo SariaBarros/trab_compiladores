@@ -24,6 +24,7 @@ void Parser::matchA(int t){
 }
 
 void Parser::run(){
+    
     advance();
 
     //primeiro não terminal
@@ -35,7 +36,9 @@ void Parser::run(){
 void Parser::program(){
     //todo: testar a First.cpp
     //checa se o lookahead tá no fist de classList
-    if(First::classList(lToken)){
+    if(lToken && lToken->nome == END_OF_FILE)
+        return;
+    else if(First::classList(lToken)){
         classList();
     }
     else{
