@@ -45,14 +45,14 @@ void Parser::program(){
 
 void Parser::classList(){
     classDecl();
-        classList_Linha();
-}
-
-void Parser::classList_Linha(){
     if(First::classList(lToken)){
         classList();
+    }else if(lToken && lToken->nome != END_OF_FILE){
+        lToken->ToString();
+        erro();
     }
 }
+
 
 void Parser::classDecl(){
     if(lToken->lexema == "class"){
@@ -302,10 +302,13 @@ void Parser::statements_Linha(){
 }
 
 void Parser::statement(){
-    if(First::atribStat(lToken)){
-        atribStat();
-        matchA(PVIR);
+    if(First::forStat(lToken)){
+        forStat();
     }
+    // if(First::atribStat(lToken)){
+    //     atribStat();
+    //     matchA(PVIR);
+    // }
     else if(First::varDeclList(lToken)){
         varDeclList();
     }
@@ -328,9 +331,9 @@ void Parser::statement(){
     else if(First::ifStat(lToken)){
         ifStat();
     }
-    else if(First::forStat(lToken)){
-        forStat();
-    }
+    // else if(First::forStat(lToken)){
+    //     forStat();
+    // }
     else if(lToken->lexema == "break"){
         advance();
         matchA(PVIR);
@@ -411,9 +414,10 @@ void Parser::forStat(){
         advance();
         matchA(EPAR);
             atribStatOpt();
-            matchA(VIR);
+            advance();
+            matchA(PVIR);
             expressionOpt();
-            matchA(VIR);
+            matchA(PVIR);
             atribStatOpt();
         matchA(DPAR);
         matchA(ECHAV);
@@ -490,27 +494,19 @@ void Parser::allocExpression(){
         matchA(DCOL);
     }
 }
-//ToDo: matar a linha
+
 void Parser::numExpression(){
     term();
-
-        numExpression_Linha();
-}
-
-void Parser::numExpression_Linha(){
-    if (lToken->nome == SUM || lToken->nome == DIF){
+    if(lToken->atributo == SUM || lToken->atributo == DIF){
         advance();
         term();
     }
 }
-//ToDo: matar a linha
+
 void Parser::term(){
     unaryExpression();
-        term_Linha();
-}
 
-void Parser::term_Linha(){
-    if(lToken->nome == MULT || lToken->nome == DIV || lToken->nome == MOD){
+    if(lToken->atributo == MULT || lToken->atributo == DIV || lToken->atributo == MOD){
         advance();
         unaryExpression();
     }
@@ -531,7 +527,7 @@ void Parser::factor(){
     else if(lToken->nome == STR){
         advance();
     }
-    else if(lToken->atributo     == EPAR){
+    else if(lToken->atributo  == EPAR){
         advance();
         expression();
         matchA(DPAR);

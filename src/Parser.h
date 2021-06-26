@@ -14,7 +14,6 @@ class Parser{
         void program();
 
         void classList();
-        void classList_Linha();
         void classDecl();
         void classDecl_Linha();
         void classBody();
@@ -75,7 +74,6 @@ class Parser{
         void expressionOpt();
         void allocExpression();
         void numExpression();
-        void numExpression_Linha();
         void unaryExpression();
         
         void argList();
