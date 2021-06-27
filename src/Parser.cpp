@@ -4,7 +4,7 @@ Parser::Parser(ifstream* input){
     currentST = globalST = new SymbolTable();
     initSymbolTable();
 
-    scanner = new Scanner(input);
+    scanner = new Scanner(input, globalST);
 }
 
 void Parser::advance(){

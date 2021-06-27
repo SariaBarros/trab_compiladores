@@ -1,7 +1,7 @@
 #include "Scanner.h"
 
 //Construtor
-Scanner::Scanner(ifstream* input)
+Scanner::Scanner(ifstream* input, SymbolTable* table)
 {
 
     pos = 0;

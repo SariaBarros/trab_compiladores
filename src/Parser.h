@@ -88,6 +88,6 @@ class Parser{
     public:
         Parser(ifstream*);
         void run();
-        SymbolTable currentST, globalST; 
+        SymbolTable *currentST, *globalST; 
 
 };

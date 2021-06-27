@@ -1,5 +1,6 @@
 #pragma once
 #include "Token.h"
+#include "symboltable.h"
 
 class Scanner
 {
@@ -8,7 +9,7 @@ class Scanner
 		int pos;
 
 	public:
-		Scanner(ifstream* entrada);
+		Scanner(ifstream* entrada, SymbolTable* table);
 		Token* nextToken();
         void ErroLexico(int);
 		int linha = 1;
