@@ -41,7 +41,7 @@ Token* Scanner::nextToken(){
 	while(isspace(entrada[pos])){
 		pos++;
 		if (entrada[pos] == '\n')
-			this->linha++;
+			linha++;
 	}
 
 	//TODO:checar isso daqui depois.
@@ -51,6 +51,7 @@ Token* Scanner::nextToken(){
 			do{
 				pos++;
 			}while(entrada[pos] != '\n');
+			linha++;
 			pos++;
 			tok = this->nextToken();
 			//tok = new Token(COMENTARIO);
@@ -58,9 +59,16 @@ Token* Scanner::nextToken(){
 		else if(entrada[pos] == '*'){
 			do{
 				pos++;
+				if(entrada[pos] == '\n'){
+					linha++;
+				}
 			}while(entrada[pos] != '*' and entrada[pos++] != '/');
-			pos += 3;
-			tok = this->nextToken();
+			pos = pos + 2;
+			
+			if(entrada[pos] == '\n')
+				linha++;
+
+			tok =  this->nextToken();
 			//tok = new Token(COMENTARIO);
 		}
 		else {
