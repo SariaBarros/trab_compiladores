@@ -7,6 +7,7 @@ class Scanner
 	private:
 		string entrada;
 		int pos;
+		SymbolTable *st;
 
 	public:
 		Scanner(ifstream* entrada, SymbolTable* table);

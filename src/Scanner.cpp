@@ -91,9 +91,13 @@ Token* Scanner::nextToken(){
 		}
 		//TODO:busca por palavras reservadas na symble table.
 		//idea: hash???
-
-		//TODO: armazenar o id.
-		tok = new Token(ID, buffer);
+		STEntry* obj = st ->get(buffer);
+		if(!obj){
+			tok = new Token(ID, buffer);
+		}
+		else{
+			tok = new Token(obj->token->nome);
+		}
 		buffer.clear();
 	}
 
