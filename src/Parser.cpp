@@ -14,14 +14,14 @@ void Parser::matchN(int t){
     if(lToken->nome == t)
         advance();
     else
-        erro();
+        erro(this->scanner->linha);
 }
 
 void Parser::matchA(int t){
     if (lToken->atributo == t)
         advance();
     else
-        erro();
+        erro(this->scanner->linha);
 }
 
 void Parser::run(){
@@ -43,7 +43,7 @@ void Parser::program(){
         classList();
     }
     else{
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -53,7 +53,7 @@ void Parser::classList(){
         classList();
     }else if(lToken && lToken->nome != END_OF_FILE){
         lToken->ToString();
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -65,7 +65,7 @@ void Parser::classDecl(){
         classDecl_Linha();
     }
     else {
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -79,7 +79,7 @@ void Parser::classDecl_Linha(){
         classBody();
     }
     else {
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -92,7 +92,7 @@ void Parser::classBody(){
         matchA(DCHAV);
     }
     else{
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -164,7 +164,7 @@ void Parser::type(){
         advance();
     }
     else {
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -192,7 +192,7 @@ void Parser::constructDecl(){
         methodBody();
     }
     else {
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -242,7 +242,7 @@ void Parser::methodBody(){
         matchA(DCHAV);
     }
     else {
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -282,7 +282,7 @@ void Parser::param_Linha(){
         //OBS: não sei se dá pra tratar o id se usar a match
     }
     else {
-        erro();
+        erro(this->scanner->linha);
     }
 }
 
@@ -556,8 +556,8 @@ void Parser::argList_Linha(){
     }
 }
 
-void Parser::erro(){
-    cout << "Erro Sintatico:(" << endl;
+void Parser::erro(int linha){
+    cout << "Erro Sintatico na linha "<< linha << endl;
     exit(EXIT_FAILURE);
 }
 

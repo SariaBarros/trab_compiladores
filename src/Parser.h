@@ -10,7 +10,7 @@ class Parser{
         void advance();
         void matchN(int);
         void matchA(int);
-        void erro();
+        void erro(int);
 
         void program();
 

@@ -38,8 +38,11 @@ Token* Scanner::nextToken(){
 	string buffer;
 
 	//consome espaços em branco
-	while(isspace(entrada[pos]))
+	while(isspace(entrada[pos])){
 		pos++;
+		if (entrada[pos] == '\n')
+			this->linha++;
+	}
 
 	//TODO:checar isso daqui depois.
 	if(entrada[pos] == '/'){
@@ -148,7 +151,7 @@ Token* Scanner::nextToken(){
 			tok = new Token(RELOP, NEQ);
 		}
 		else
-			ErroLexico(); //não sei se deixo isso aqui mesmo.
+			ErroLexico(this->linha); //não sei se deixo isso aqui mesmo.
 	}
 	//SEPARADORES
 	else if(entrada[pos] == '('){
@@ -198,13 +201,13 @@ Token* Scanner::nextToken(){
 		buffer.clear();
 	}
 	else
-		ErroLexico();
+		ErroLexico(this->linha);
 	
 	return tok;
 }
 
 //Aviso de erro lexico
-void Scanner::ErroLexico(){
-	cout<<"Erro Léxico\n";
+void Scanner::ErroLexico(int linha){
+	cout<<"Erro Léxico na linha " << linha << endl ;
 	//exit(EXIT_FAILURE);
 }

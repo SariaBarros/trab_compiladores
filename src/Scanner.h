@@ -10,6 +10,6 @@ class Scanner
 	public:
 		Scanner(ifstream* entrada);
 		Token* nextToken();
-        void ErroLexico();
+        void ErroLexico(int);
 		int linha = 1;
 };
