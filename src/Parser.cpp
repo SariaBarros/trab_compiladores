@@ -1,7 +1,9 @@
 #include "Parser.h"
 
 Parser::Parser(ifstream* input){
-
+    currentST = globalST = new SymbolTable();
+    initSymbolTable();
+    
     scanner = new Scanner(input);
 }
 
@@ -572,5 +574,47 @@ bool Parser::isRelOp(){
 }
 
 void Parser::initSymbolTable(){
-    
+    Token* t;
+
+    t = new Token(RESERV, CLASS);
+    globalST->add(new STEntry(t, "class", true));
+
+    t = new Token(RESERV, EXTND);
+    globalST->add(new STEntry(t, "extends", true));
+
+    t = new Token(RESERV, INT);
+    globalST->add(new STEntry(t, "int", true));
+
+    t = new Token(RESERV, STRING);
+    globalST->add(new STEntry(t, "string", true));
+
+    t = new Token(RESERV, BRK);
+    globalST->add(new STEntry(t, "break", true));
+
+    t = new Token(RESERV, PRT);
+    globalST->add(new STEntry(t, "print", true));
+
+    t = new Token(RESERV, READ);
+    globalST->add(new STEntry(t, "read", true));
+
+    t = new Token(RESERV, RTN);
+    globalST->add(new STEntry(t, "return", true));
+
+    t = new Token(RESERV, SPR);
+    globalST->add(new STEntry(t, "super", true));
+
+    t = new Token(RESERV, IF);
+    globalST->add(new STEntry(t, "if", true));
+
+    t = new Token(RESERV, ELSE);
+    globalST->add(new STEntry(t, "else", true));
+
+    t = new Token(RESERV, FOR);
+    globalST->add(new STEntry(t, "for", true));
+
+    t = new Token(RESERV, NEW);
+    globalST->add(new STEntry(t, "new", true));
+
+    t = new Token(RESERV, CNST);
+    globalST->add(new STEntry(t, "constructor", true));
 }
