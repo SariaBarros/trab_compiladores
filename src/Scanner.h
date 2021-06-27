@@ -11,5 +11,5 @@ class Scanner
 		Scanner(ifstream* entrada);
 		Token* nextToken();
         void ErroLexico();
-		int linha=1;
+		int linha = 1;
 };

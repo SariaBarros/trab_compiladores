@@ -1,5 +1,6 @@
 #include "Scanner.h"
 #include "First.h"
+#include "symboltable.h"
 
 class Parser{
     private:
@@ -82,8 +83,11 @@ class Parser{
         
         bool isRelOp();
 
+        void initSymbolTable();
 
     public:
         Parser(ifstream*);
         void run();
+        SymbolTable currentST, globalST; 
+
 };

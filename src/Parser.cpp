@@ -1,6 +1,7 @@
 #include "Parser.h"
 
 Parser::Parser(ifstream* input){
+
     scanner = new Scanner(input);
 }
 
@@ -568,4 +569,8 @@ bool Parser::isRelOp(){
     }
     else
         return false;
+}
+
+void Parser::initSymbolTable(){
+    
 }
