@@ -9,7 +9,6 @@ Parser::Parser(ifstream* input){
 
 void Parser::advance(){
     lToken = scanner -> nextToken();
-    // lToken->ToString();
 }
 
 void Parser::matchN(int t){
@@ -41,12 +40,13 @@ void Parser::run(){
     
     // STEntry* obj = currentST->get("oie");
 
+
+    cout << "Compilação encerrada com sucesso!\n";
+    // STEntry* obj = globalST->get("Teste");
     // if(obj)
     //     cout<<"foi"<<endl;
     // else
     //     cout<<"nao foi\n";
-
-    // cout << "Compilação encerrada com sucesso!\n";
 }
 
 void Parser::program(){
@@ -76,8 +76,14 @@ void Parser::classList(){
 void Parser::classDecl(){
     if(lToken->atributo == CLASS){
         advance();
+        if(globalST->add(new STEntry(lToken, lToken->lexema))){
         matchN(ID);
         classDecl_Linha();
+        }
+        else{
+            cout<<"Classe "<<lToken->lexema<<" já existe\n";
+            erro(this->scanner->linha);
+        }
     }
     else {
         erro(this->scanner->linha);
@@ -100,11 +106,13 @@ void Parser::classDecl_Linha(){
 
 void Parser::classBody(){
     if(lToken->atributo == ECHAV){
+        currentST = new SymbolTable(currentST);
         advance();
         varDeclListOpt();
             constructDeclListOpt();
                 methodDeclListOpt();
         matchA(DCHAV);
+        currentST = currentST->getParent();
     }
     else{
         erro(this->scanner->linha);
@@ -131,15 +139,21 @@ void Parser::varDeclList_Linha(){
 void Parser::varDecl(){
     type();
     if(lToken->nome == ID){
-        advance();
-        if(First::methodBody(lToken)){
-            methodBody();
+        if(currentST->add(new STEntry(lToken, lToken->lexema))){
+            advance();
+            if(First::methodBody(lToken)){
+                methodBody();
+            }
+            else{
+                if(First::varDeclOpt(lToken)){
+                    varDeclOpt();
+                }
+                matchA(PVIR);
+            }
         }
         else{
-            if(First::varDeclOpt(lToken)){
-                varDeclOpt();
-            }
-            matchA(PVIR);
+            cout<<lToken->lexema<<" já exite\n";
+            erro(this->scanner->linha);
         }
     }
     else if(lToken->atributo == ECOL){
@@ -249,12 +263,14 @@ void Parser::methodDecl_Linha(){
 
 void Parser::methodBody(){
     if(lToken->atributo == EPAR){
+        currentST = new SymbolTable(currentST);
         advance();
         paramListOpt();
         matchA(DPAR);
         matchA(ECHAV);
         statementsOpt();
         matchA(DCHAV);
+        currentST = currentST->getParent();
     }
     else {
         erro(this->scanner->linha);
@@ -286,15 +302,17 @@ void Parser::param(){
 }
 
 void Parser::param_Linha(){
-    if(lToken->nome == ID){
-        //ToDo: tratar id
+    if(lToken->atributo == ECOL){
         advance();
+        matchA(DCOL);    
     }
-    else if(lToken->atributo == ECOL){
-        advance();
-        matchA(DCOL);
-        matchN(ID);
-        //OBS: não sei se dá pra tratar o id se usar a match
+    if(lToken->nome == ID){
+        if(currentST->add(new STEntry(lToken, lToken->lexema))){
+            advance();
+        }
+        else{
+            cout<<"Variavel "<<lToken->lexema<<" já exite\n";
+        }
     }
     else {
         erro(this->scanner->linha);
@@ -321,13 +339,11 @@ void Parser::statements_Linha(){
 }
 
 void Parser::statement(){
-    if(First::forStat(lToken)){
-        forStat();
+
+    if(First::atribStat(lToken)){
+        atribStat();
+        matchA(PVIR);
     }
-    // if(First::atribStat(lToken)){
-    //     atribStat();
-    //     matchA(PVIR);
-    // }
     else if(First::varDeclList(lToken)){
         varDeclList();
     }
@@ -350,9 +366,9 @@ void Parser::statement(){
     else if(First::ifStat(lToken)){
         ifStat();
     }
-    // else if(First::forStat(lToken)){
-    //     forStat();
-    // }
+    else if(First::forStat(lToken)){
+        forStat();
+    }
     else if(lToken->atributo == BRK){
         advance();
         matchA(PVIR);
@@ -408,6 +424,7 @@ void Parser::superStat(){
 
 void Parser::ifStat(){
     if(lToken->atributo == IF){
+        currentST = new SymbolTable(currentST);
         advance();
         matchA(EPAR);
             expression();
@@ -416,6 +433,7 @@ void Parser::ifStat(){
             statements();
         matchA(DCHAV);
         ifStat_Linha();
+        currentST = currentST->getParent();
     }
 }
 
@@ -459,8 +477,14 @@ void Parser::expressionOpt(){
 
 void Parser::lValue(){
     if(lToken->nome == ID){
-        advance();
-        lValue_Linha();
+        STEntry *obj = currentST->get(lToken->lexema);
+        if(obj){  
+            advance();
+            lValue_Linha();
+        }
+        else{
+            cout<<"variavel não declarada\n";
+        }
     }
 }
 

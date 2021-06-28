@@ -29,7 +29,6 @@ Scanner::Scanner(ifstream* input, SymbolTable* table)
 Token* Scanner::nextToken(){
 	Token* tok;
 	string buffer;
-
 	//consome espaços em branco
 	while(isspace(entrada[pos])){
 		entrada[pos] == '\n'? this->linha++:this->linha=this->linha;
@@ -90,11 +89,9 @@ Token* Scanner::nextToken(){
 		STEntry* obj = st ->get(buffer);
 		if(!obj){
 			tok = new Token(ID, buffer);
-			tok->ToString();
 		}
 		else{
 			tok = obj->token;
-			tok->ToString();
 		}
 		buffer.clear();
 	}
