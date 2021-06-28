@@ -35,47 +35,63 @@ class Token
 		void ToString(){
 			string* vetNomes;
 
-			vetNomes = new string[29];
+			vetNomes = new string[44];
 			vetNomes[0] = "UNDEF";
 			vetNomes[1] = "ID";
 			vetNomes[2] = "INTEGER_LITERAL"; 
+
 			vetNomes[3] = "OP";
-			vetNomes[4] = "MN";
-			vetNomes[5] = "MA"; 
-			vetNomes[6] = "MNE";
-			vetNomes[7] = "MAE";
-			vetNomes[8] = "EQ";
-			vetNomes[9] = "NEQ";
-			vetNomes[10] = "SUM";
-			vetNomes[11] = "DIF";
-			vetNomes[12] = "MULT";
-			vetNomes[13] = "DIV";
-			vetNomes[14] = "MOD";
-			vetNomes[15] = "REC";
-			vetNomes[16] = "STR";
-			vetNomes[17] = "SEP"; 
-			vetNomes[18] = "EPAR";
-			vetNomes[19] = "DPAR";
-			vetNomes[20] = "ECOL"; 
-			vetNomes[21] = "DCOL";
-			vetNomes[22] = "ECHAV";
-			vetNomes[23] = "DCHAV";
-			vetNomes[24] = "PVIR";
-			vetNomes[25] = "PNT";
-			vetNomes[26] = "VIR"; 
-			vetNomes[27] = "END_OF_FILE";
-			vetNomes[28] = "RELOP";
-			
-			if(nome == 1){
-			cout<<vetNomes[nome]<< "("<<lexema<<") ";
+				vetNomes[4] = "SUM";
+				vetNomes[5] = "DIF"; 
+				vetNomes[6] = "MULT";
+				vetNomes[7] = "DIV";
+				vetNomes[8] = "MOD";
+				vetNomes[9] = "REC";
+
+			vetNomes[10] = "RELOP";
+				vetNomes[11] = "MN";
+				vetNomes[12] = "MA";
+				vetNomes[13] = "MNE";
+				vetNomes[14] = "MAE";
+				vetNomes[15] = "EQ";
+				vetNomes[16] = "NEQ";
+
+			vetNomes[17] = "STR"; 
+
+			vetNomes[18] = "SEP";
+				vetNomes[19] = "EPAR";
+				vetNomes[20] = "DPAR"; 
+				vetNomes[21] = "ECOL";
+				vetNomes[22] = "DCOL";
+				vetNomes[23] = "ECHAV";
+				vetNomes[24] = "DCHAV";
+				vetNomes[25] = "PVIR";
+				vetNomes[26] = "PNT";
+				vetNomes[27] = "VIR"; 
+
+			vetNomes[28] = "END_OF_FILE";
+
+			vetNomes[29] = "RESERV";
+				vetNomes[30] = "CLASS";
+				vetNomes[31] =	"EXTND";
+				vetNomes[32] =	"INT";
+				vetNomes[33] =	"STRING";
+				vetNomes[34] =	"BRK";
+				vetNomes[35] =	"PRT";
+				vetNomes[36] =	"READ";
+				vetNomes[37] =	"RTN";
+				vetNomes[38] =	"SPR";
+				vetNomes[39] =	"IF";
+				vetNomes[40] =  "ELSE";
+				vetNomes[41] =	"FOR";
+				vetNomes[42] =	"NEW";
+				vetNomes[43] =	"CNST";
+
+			if(nome == ID or nome == STR or nome == INTEGER_LITERAL){
+				cout<<vetNomes[nome]<< "("<<lexema<<") ";
 			}
-			else if(nome == 16){
-			cout<<vetNomes[nome]<< "("<<lexema<<") ";
+			else{
+				cout<<vetNomes[nome]<<"("<< vetNomes[atributo] << ") ";
 			}
-			else if(nome == 2){
-			cout<<vetNomes[nome]<< "("<<lexema<<") ";
-			}
-			else
-				cout<<vetNomes[nome]<< " ";
 		}
 };

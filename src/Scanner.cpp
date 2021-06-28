@@ -87,9 +87,11 @@ Token* Scanner::nextToken(){
 		STEntry* obj = st ->get(buffer);
 		if(!obj){
 			tok = new Token(ID, buffer);
+			tok->ToString();
 		}
 		else{
-			tok = new Token(obj->token->nome);
+			tok = obj->token;
+			tok->ToString();
 		}
 		buffer.clear();
 	}
