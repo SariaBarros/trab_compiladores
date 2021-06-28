@@ -32,9 +32,8 @@ Token* Scanner::nextToken(){
 
 	//consome espaços em branco
 	while(isspace(entrada[pos])){
+		entrada[pos] == '\n'? this->linha++:this->linha=this->linha;
 		pos++;
-		if (entrada[pos] == '\n')
-			linha++;
 	}
 
 	//TODO:checar isso daqui depois.
@@ -44,22 +43,26 @@ Token* Scanner::nextToken(){
 			do{
 				pos++;
 			}while(entrada[pos] != '\n');
-			linha++;
+			this->linha++;
 			pos++;
 			tok = this->nextToken();
 			//tok = new Token(COMENTARIO);
 		}
 		else if(entrada[pos] == '*'){
 			do{
+				entrada[pos] == '\n'? this->linha++:this->linha=this->linha;
 				pos++;
-				if(entrada[pos] == '\n'){
-					linha++;
-				}
-			}while(entrada[pos] != '*' and entrada[pos++] != '/');
-			pos = pos + 2;
+			}while(entrada[pos] != '*' and entrada[pos + 1] != '/');
+
+			for(int i = 0; i < 4; i++) {
+				entrada[pos] == '\n'? this->linha++:this->linha=this->linha;			
+				pos++;
+			}
+
+			//pos = pos + 2;
 			
-			if(entrada[pos] == '\n')
-				linha++;
+			//if(entrada[pos] == '\n')
+			//	linha++;
 
 			tok =  this->nextToken();
 			//tok = new Token(COMENTARIO);
