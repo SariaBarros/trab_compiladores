@@ -5,23 +5,16 @@ Scanner::Scanner(ifstream* input, SymbolTable* table)
 {
 
     pos = 0;
-
+	st = table;
     // ifstream inputFile(input, ios::in);
 
     string line;
 	
-    if ((*input).is_open())
-    {
-
-        while (getline((*input),line) )
-        {
-
+    if ((*input).is_open()){
+        while (getline((*input),line)){
             this->entrada.append(line + '\n');
-
         }
-
         (*input).close();
-
     }
 
     else {

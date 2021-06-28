@@ -1,6 +1,6 @@
 #include "Scanner.h"
 #include "First.h"
-#include "symboltable.h"
+// #include "symboltable.h"
 
 class Parser{
     private:
