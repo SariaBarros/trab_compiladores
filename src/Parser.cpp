@@ -398,7 +398,7 @@ void Parser::returnStat(){
 }
 
 void Parser::superStat(){
-    if (lToken->atributo == super){
+    if (lToken->atributo == SPR){
         advance();
         matchA(EPAR);
         argListOpt();
