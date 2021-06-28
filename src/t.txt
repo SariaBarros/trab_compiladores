@@ -1,9 +1,7 @@
 class Teste{
-    /*
-
-
-
-    */
-
-    ;
+        
+    int a(){
+        int asa;
+        int asa;
+    }
 }

@@ -6,7 +6,6 @@ Scanner::Scanner(ifstream* input, SymbolTable* table)
 
     pos = 0;
 	st = table;
-    // ifstream inputFile(input, ios::in);
 
     string line;
 	
@@ -22,8 +21,6 @@ Scanner::Scanner(ifstream* input, SymbolTable* table)
 		exit(EXIT_FAILURE);
 	}
 
-	//realmente necessário?
-    // cout << this->entrada;
 }
 
 Token* Scanner::nextToken(){
@@ -35,7 +32,6 @@ Token* Scanner::nextToken(){
 		pos++;
 	}
 
-	//TODO:checar isso daqui depois.
 	if(entrada[pos] == '/'){
 		pos++;
 		if(entrada[pos] == '/'){
@@ -58,13 +54,8 @@ Token* Scanner::nextToken(){
 				pos++;
 			}
 
-			//pos = pos + 2;
-			
-			//if(entrada[pos] == '\n')
-			//	linha++;
-
 			tok =  this->nextToken();
-			//tok = new Token(COMENTARIO);
+
 		}
 		else {
 			tok = new Token(OP, DIV);

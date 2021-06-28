@@ -14,6 +14,7 @@ class Token
 		int atributo;
 		string lexema;
 
+
 		Token(int nome){
 			this->nome = nome;
 			atributo = UNDEF;

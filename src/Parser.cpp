@@ -32,25 +32,14 @@ void Parser::run(){
     currentST = new SymbolTable(currentST);
 
     program();
-    //teste ts
-    // if(currentST->add(new STEntry(new Token(ID), "oie")))
-    //     cout<<"foi"<<endl;
-    // else
-    //     cout<<"nao foi\n";
-    
-    // STEntry* obj = currentST->get("oie");
+
 
 
     cout << "Compilação encerrada com sucesso!\n";
-    // STEntry* obj = globalST->get("Teste");
-    // if(obj)
-    //     cout<<"foi"<<endl;
-    // else
-    //     cout<<"nao foi\n";
+
 }
 
 void Parser::program(){
-    //todo: testar a First.cpp
     //checa se o lookahead tá no fist de classList
     if(lToken && lToken->nome == END_OF_FILE)
         return;
@@ -67,7 +56,6 @@ void Parser::classList(){
     if(First::classList(lToken)){
         classList();
     }else if(lToken && lToken->nome != END_OF_FILE){
-        lToken->ToString();
         erro(this->scanner->linha);
     }
 }
@@ -82,7 +70,6 @@ void Parser::classDecl(){
         }
         else{
             cout<<"Classe "<<lToken->lexema<<" já existe\n";
-            erro(this->scanner->linha);
         }
     }
     else {
@@ -158,7 +145,6 @@ void Parser::varDecl(){
         }
         else{
             cout<<lToken->lexema<<" já exite\n";
-            erro(this->scanner->linha);
         }
     }
     else if(lToken->atributo == ECOL){
@@ -194,7 +180,6 @@ void Parser::type(){
         advance();
     }
     else if(lToken->nome == ID){
-        // ToDo: tratar o id
         advance();
     }
     else {
@@ -569,7 +554,6 @@ void Parser::unaryExpression(){
 
 void Parser::factor(){
     if(lToken->nome == INTEGER_LITERAL){
-        //tratar o numero.
         advance();
     }
     else if(lToken->nome == STR){
