@@ -12,7 +12,7 @@ public:
     }
 
     static bool classList(Token* token){
-        if(token->lexema == "class"){
+        if(token->atributo == CLASS){
             return true;
         }
         else
@@ -20,7 +20,7 @@ public:
     }
 
     static bool classList_Linha(Token* token){
-        if(token->lexema == "class"){
+        if(token->atributo == CLASS){
             return true;
         }
         else
@@ -28,7 +28,7 @@ public:
     }
 
     static bool classDecl(Token* token){
-        if(token->lexema == "class"){
+        if(token->atributo == CLASS){
             return true;
         }
         else
@@ -36,7 +36,7 @@ public:
     }
 
     static bool classDecl_Linha(Token* token){
-        if(token->lexema == "class" or token->atributo == ECHAV )
+        if(token->atributo == CLASS or token->atributo == ECHAV )
         {
             return true;
         }
@@ -53,7 +53,7 @@ public:
     }
 
     static bool varDeclListOpt(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -61,7 +61,7 @@ public:
     }
 
     static bool varDeclList(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -69,7 +69,7 @@ public:
     }
 
     static bool varDeclList_Linha(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -77,7 +77,7 @@ public:
     }
 
     static bool varDecl(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -101,7 +101,7 @@ public:
     }
 
     static bool type(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -109,7 +109,7 @@ public:
     }
 
     static bool constructDeclListOpt(Token* token){
-        if(token->lexema == "constructor"){
+        if(token->atributo == CNST){
             return true;
         }
         else
@@ -117,7 +117,7 @@ public:
     }
 
     static bool constructDeclList(Token* token){
-        if(token->lexema == "constructor"){
+        if(token->atributo == CNST){
             return true;
         }
         else
@@ -125,7 +125,7 @@ public:
     }
 
     static bool constructDeclList_Linha(Token* token){
-        if(token->lexema == "constructor"){
+        if(token->atributo == CNST){
             return true;
         }
         else
@@ -133,7 +133,7 @@ public:
     }
 
     static bool constructDecl(Token* token){
-        if(token->lexema == "constructor"){
+        if(token->atributo == CNST){
             return true;
         }
         else
@@ -141,7 +141,7 @@ public:
     }
 
     static bool methodDeclListOpt(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -149,7 +149,7 @@ public:
     }
 
     static bool methodDeclList(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -157,7 +157,7 @@ public:
     }
 
     static bool methodDeclList_Linha(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -165,7 +165,7 @@ public:
     }
 
     static bool methodDecl(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -189,7 +189,7 @@ public:
     }
 
     static bool paramListOpt(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -197,7 +197,7 @@ public:
     }
 
     static bool paramList(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -213,7 +213,7 @@ public:
     }
 
     static bool param(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID){
             return true;
         }
         else
@@ -229,10 +229,10 @@ public:
     }
 
     static bool statementsOpt(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID
-        or token->lexema == "break" or token->atributo == PVIR or token->lexema == "print"
-        or token->lexema == "if" or token->lexema == "super" or token->lexema == "read" or 
-        token->lexema == "for" or token->lexema == "return"){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID
+        or token->atributo == BRK or token->atributo == PVIR or token->atributo == PRT
+        or token->atributo == IF or token->atributo == SPR or token->atributo == READ or 
+        token->atributo == FOR or token->atributo == RTN){
             return true;
         }
         else
@@ -240,10 +240,10 @@ public:
     }
 
     static bool statements(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID
-        or token->lexema == "break" or token->atributo == PVIR or token->lexema == "print"
-        or token->lexema == "if" or token->lexema == "super" or token->lexema == "read" or 
-        token->lexema == "for" or token->lexema == "return"){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID
+        or token->atributo == BRK or token->atributo == PVIR or token->atributo == PRT
+        or token->atributo == IF or token->atributo == SPR or token->atributo == READ or 
+        token->atributo == FOR or token->atributo == RTN){
             return true;
         }
         else
@@ -251,10 +251,10 @@ public:
     }
 
     static bool statements_Linha(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID
-        or token->lexema == "break" or token->atributo == PVIR or token->lexema == "print"
-        or token->lexema == "if" or token->lexema == "super" or token->lexema == "read" or 
-        token->lexema == "for" or token->lexema == "return"){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID
+        or token->atributo == BRK or token->atributo == PVIR or token->atributo == PRT
+        or token->atributo == IF or token->atributo == SPR or token->atributo == READ or 
+        token->atributo == FOR or token->atributo == RTN){
             return true;
         }
         else
@@ -262,10 +262,10 @@ public:
     }
 
     static bool statement(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID
-        or token->lexema == "break" or token->atributo == PVIR or token->lexema == "print"
-        or token->lexema == "if" or token->lexema == "super" or token->lexema == "read" or 
-        token->lexema == "for" or token->lexema == "return"){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID
+        or token->atributo == BRK or token->atributo == PVIR or token->atributo == PRT
+        or token->atributo == IF or token->atributo == SPR or token->atributo == READ or 
+        token->atributo == FOR or token->atributo == RTN){
             return true;
         }
         else
@@ -281,7 +281,7 @@ public:
     }
 
     static bool atribStat_Linha(Token* token){
-        if(token->lexema == "new" or token->lexema == "int" or token->lexema == "string" or 
+        if(token->atributo == NEW or token->atributo == INT or token->atributo == STRING or 
         token->nome == ID or token->atributo == SUM or token->atributo == DIF){
             return true;
         }
@@ -290,15 +290,14 @@ public:
     }
 
     static bool printStat(Token* token){
-        if(token->lexema == "print"){
+        if(token->atributo == PRT)
             return true;
-        }
         else
             return false;
     }
 
     static bool readStat(Token* token){
-        if(token->lexema == "read"){
+        if(token->atributo == READ){
             return true;
         }
         else
@@ -306,7 +305,7 @@ public:
     }
 
     static bool returnStat(Token* token){
-        if(token->lexema == "return"){
+        if(token->atributo == RTN){
             return true;
         }
         else
@@ -314,7 +313,7 @@ public:
     }
 
     static bool superStat(Token* token){
-        if(token->lexema == "super"){
+        if(token->atributo == SPR){
             return true;
         }
         else
@@ -322,7 +321,7 @@ public:
     }
 
     static bool ifStat(Token* token){
-        if(token->lexema == "if"){
+        if(token->atributo == IF){
             return true;
         }
         else
@@ -330,7 +329,7 @@ public:
     }
 
     static bool ifStat_Linha(Token* token){
-        if(token->lexema == "else"){
+        if(token->atributo == ELSE){
             return true;
         }
         else
@@ -338,7 +337,7 @@ public:
     }
 
     static bool forStat(Token* token){
-        if(token->lexema == "for"){
+        if(token->atributo == FOR){
             return true;
         }
         else
@@ -410,7 +409,7 @@ public:
     }
 
     static bool allocExpression(Token* token){
-        if(token->lexema == "int" or token->lexema == "string" or token->nome == ID or token->lexema == "new"){
+        if(token->atributo == INT or token->atributo == STRING or token->nome == ID or token->atributo == NEW){
             return true;
         }
         else
