@@ -74,7 +74,7 @@ void Parser::classList(){
 
 
 void Parser::classDecl(){
-    if(lToken->lexema == "class"){
+    if(lToken->atributo == CLASS){
         advance();
         matchN(ID);
         classDecl_Linha();
@@ -85,7 +85,7 @@ void Parser::classDecl(){
 }
 
 void Parser::classDecl_Linha(){
-    if(lToken->lexema == "extends"){
+    if(lToken->atributo == EXTND){
         advance();
         matchN(ID);
         classBody();
@@ -168,10 +168,10 @@ void Parser::varDeclOpt(){
 }
 
 void Parser::type(){
-    if(lToken->lexema == "int"){
+    if(lToken->atributo == INT){
         advance();
     }
-    else if(lToken->lexema == "string"){
+    else if(lToken->atributo == STRING){
         advance();
     }
     else if(lToken->nome == ID){
@@ -202,7 +202,7 @@ void Parser::constructDeclList_Linha(){
 }
 
 void Parser::constructDecl(){
-    if(lToken->lexema == "constructor"){
+    if(lToken->atributo == CNST){
         advance();
         methodBody();
     }
@@ -353,7 +353,7 @@ void Parser::statement(){
     // else if(First::forStat(lToken)){
     //     forStat();
     // }
-    else if(lToken->lexema == "break"){
+    else if(lToken->atributo == BRK){
         advance();
         matchA(PVIR);
     }  
@@ -377,28 +377,28 @@ void Parser::atribStat_Linha(){
 }
 
 void Parser::printStat(){
-    if(lToken->lexema == "print"){
+    if(lToken->atributo == PRT){
         advance();
         expression();
     }
 }
 
 void Parser::readStat(){
-    if(lToken->lexema == "read"){
+    if(lToken->atributo == READ){
         advance();
         lValue();
     }
 }
 
 void Parser::returnStat(){
-    if(lToken->lexema == "return"){
+    if(lToken->atributo == RTN){
         advance();
         expression();
     }
 }
 
 void Parser::superStat(){
-    if (lToken->lexema == "super"){
+    if (lToken->atributo == super){
         advance();
         matchA(EPAR);
         argListOpt();
@@ -407,7 +407,7 @@ void Parser::superStat(){
 }
 
 void Parser::ifStat(){
-    if(lToken->lexema == "if"){
+    if(lToken->atributo == IF){
         advance();
         matchA(EPAR);
             expression();
@@ -420,7 +420,7 @@ void Parser::ifStat(){
 }
 
 void Parser::ifStat_Linha(){
-    if(lToken->lexema == "else"){
+    if(lToken->atributo == ELSE){
         advance();
         matchA(ECHAV);
             statements();
@@ -429,7 +429,7 @@ void Parser::ifStat_Linha(){
 }
 
 void Parser::forStat(){
-    if(lToken->lexema == "for"){
+    if(lToken->atributo == FOR){
         advance();
         matchA(EPAR);
             atribStatOpt();
@@ -499,7 +499,7 @@ void Parser::expression(){
 }
 
 void Parser::allocExpression(){
-    if(lToken->lexema == "new"){
+    if(lToken->atributo == NEW){
         advance();
         matchN(ID);
         matchA(EPAR);

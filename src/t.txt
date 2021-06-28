@@ -1,9 +1,9 @@
 class a{
-	/* 
+	/*
  
  
  
- */ 
+	*/
 	int teste;
 	string teste;
 	;
