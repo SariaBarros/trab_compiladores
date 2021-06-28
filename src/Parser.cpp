@@ -126,6 +126,11 @@ void Parser::varDeclListOpt(){
 
 void Parser::varDeclList(){
     varDecl();
+    STEntry* obj = currentST->get(lToken->lexema);
+    if(obj){
+        atribStat();
+    }
+    else
         varDeclList_Linha();
 }
 
