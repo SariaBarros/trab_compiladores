@@ -1,8 +1,5 @@
-# trab_compiladores
-trabalho prático de compiladores
+# Compilador de X++
 
-Integrantes:
+Compilador da linguagem hipotética X++, descrita no livro “Como Construir
+um Compilador Utilizando Ferramentas Java” de Márcio Eduardo Delamaro.
 
-Cássia Claudiane Silva da Rosa
-Samuel Willian de Souza Moraes
-Sandy Vitória Barros Ricardo
